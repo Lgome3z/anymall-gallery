@@ -79,7 +79,12 @@ function App() {
       src: "/images/venue-shiba-villa-1.jpg",
       width: 1200,
       height: 800
-    } 
+    },
+    {
+      src: "/images/venue-dyplus-1.jpg",
+      width: 1200,
+      height: 800
+    }
   ]
 
   return(

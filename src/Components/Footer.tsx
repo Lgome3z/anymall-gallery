@@ -3,7 +3,7 @@ import InstagramIcon  from "./InstagramIcon";
 export default function Footer() {
   return (
     <footer className="mt-auto bg-stone-800 px-4 py-8 md:px-8 md:py-12">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-8">
+      <div className="mx-auto flex max-w-full flex-col items-center gap-8">
 
         {/* Logo */}
         <img
