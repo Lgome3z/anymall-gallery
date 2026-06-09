@@ -22,7 +22,7 @@ export default function ImageCarousel({
         disableOnInteraction: false,
       }}
       loop
-      className="w-full h-[500px]"
+      className="aspect-[16/9] overflow-hidden rounded-xl shadow-lg w-1/2"
     >
       {images.map((image, index) => (
         <SwiperSlide key={index}>
