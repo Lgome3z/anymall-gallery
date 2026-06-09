@@ -3,13 +3,7 @@ import { MasonryPhotoAlbum } from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
 import "react-photo-album/masonry.css";
 import "yet-another-react-lightbox/styles.css";
-
-type Photo = {
-  src: string;
-  width: number;
-  height: number;
-};
-
+import type { Photo } from "../types/Photo"
 //  accept photos as a prop from App.tsx
 type GalleryProps = {
   photos: Photo[];

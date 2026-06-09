@@ -1,12 +1,13 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import type { Photo } from "../types/Photo";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 type ImageCarouselProps = {
-  images: string[];
+  images: Photo[];
 };
 
 export default function ImageCarousel({
@@ -27,7 +28,7 @@ export default function ImageCarousel({
       {images.map((image, index) => (
         <SwiperSlide key={index}>
           <img
-            src={image}
+            src={image.src}
             alt={`Slide ${index + 1}`}
             className="h-full w-full object-cover"
           />
