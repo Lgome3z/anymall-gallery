@@ -1,4 +1,5 @@
 import EventHeader from './Components/EventHeader';
+import ImageCarousel from './Components/ImageCarousel';
 
 function App() {
   return (
