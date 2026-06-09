@@ -3,7 +3,7 @@ import type { Photo } from "./types/Photo"
 
 function App() {
 
-  const title = "AnyMall Summer Design Workshop";
+  const title = "AnyMall Winter Design Workshop";
   const date = new Date(2026, 7, 15, 14, 0, 0, 0);
   const teacher = "Mori-sensei";
   const venue = "Tokyo Inumo";
@@ -97,5 +97,6 @@ function App() {
       carouselImages={carouselImages}
     />
   )
-
 }
+
+export default App;
