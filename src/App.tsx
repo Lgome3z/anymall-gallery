@@ -1,6 +1,8 @@
 import EventHeader from './Components/EventHeader';
 import ImageCarousel from './Components/ImageCarousel';
 import Gallery from './Components/Gallery';
+import TopBar from './Components/TopBar';
+import Footer from './Components/Footer';
 
 function App() {
   const images = ["/images/venue-dyplus-1.jpg", 
@@ -25,6 +27,7 @@ function App() {
   ]
   return (
     <div className="min-h-screen bg-slate-50">
+      <TopBar/>
       <EventHeader 
         title="AnyMall Summer Design Workshop"
         date="2026-07-15"
@@ -37,6 +40,7 @@ function App() {
       <div className="mt-12">
         <Gallery photos={galleryImages} />
       </div>
+      <Footer/>
     </div>
   )
 }
