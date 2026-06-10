@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MasonryPhotoAlbum } from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
-import  Download  from "yet-another-react-lightbox/plugins/download";
+import Download from "yet-another-react-lightbox/plugins/download";
 import { Expand, Check } from "lucide-react";
 
 import "react-photo-album/masonry.css";
@@ -32,8 +32,7 @@ export default function Gallery({ photos, selectMode, selectedPhotos, setSelecte
   };
 
   return (
-
-<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
       <MasonryPhotoAlbum
         photos={photos}
         columns={(containerWidth) => {
@@ -73,9 +72,16 @@ export default function Gallery({ photos, selectMode, selectedPhotos, setSelecte
                   className="object-cover w-full h-full"
                 />
 
-                {isSelected && (
-                  <div className="absolute top-2 right-2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 text-white shadow-sm">
-                    <Check size={16} />
+                {/* THE NEW CIRCLE LOGIC */}
+                {selectMode && (
+                  <div 
+                    className={`absolute top-2 right-2 z-10 flex h-6 w-6 items-center justify-center rounded-full transition-colors duration-200 shadow-sm ${
+                      isSelected 
+                        ? "bg-blue-500 text-white" // Filled blue circle with check
+                        : "border-2 border-white/80 bg-black/20 backdrop-blur-sm" // Empty outlined circle
+                    }`}
+                  >
+                    {isSelected && <Check size={16} strokeWidth={3} />}
                   </div>
                 )}
               </div>
