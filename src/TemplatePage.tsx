@@ -5,8 +5,9 @@ import TopBar from './Components/TopBar';
 import Footer from './Components/Footer';
 import JSZip from 'jszip';
 import { saveAs } from "file-saver";
-import type { Photo } from './types/Photo'
-import { useState } from 'react'
+import type { Photo } from './types/Photo';
+import { useState } from 'react';
+import { Download, CheckSquare, X } from 'lucide-react'; // Our new professional icons!
 
 type TemplatePageProps = {
   title: string, 
@@ -26,7 +27,6 @@ function getDownloadFileName(fileName: string): string {
 async function downloadPhoto(photo: Photo) {
   const response = await fetch(photo.src);
   const blob = await response.blob();
-
   saveAs(blob, getDownloadFileName(photo.fileName))
 }
 
@@ -36,12 +36,10 @@ async function downloadPhotosAsZip(photos: Photo[]) {
   for (const photo of photos) {
     const response = await fetch(photo.src);
     const blob = await response.blob();
-
     zip.file(getDownloadFileName(photo.fileName), blob);
   }
 
   const zipBlob = await zip.generateAsync({ type:"blob" });
-
   saveAs(zipBlob, "photos.zip");
 }
 
@@ -49,9 +47,16 @@ export default function TemplatePage({title, date, teacher, venue, galleryImages
   const [selectedPhotos, setSelectedPhotos] = useState<Photo[]>([]);
   const [selectMode, setSelectMode] = useState<boolean>(false);
 
+  const handleSelectAll = () => {
+    if (selectedPhotos.length === galleryImages.length) {
+      setSelectedPhotos([]); 
+    } else {
+      setSelectedPhotos([...galleryImages]); 
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       <TopBar/>
       <EventHeader 
         title={title}
@@ -60,24 +65,68 @@ export default function TemplatePage({title, date, teacher, venue, galleryImages
         venue={venue}
       />
       <ImageCarousel images={carouselImages} />
-      <div className="mt-12 p-20 gap-4">
-        <div className="flex justify-between items-center">
-          <button disabled={selectedPhotos.length === 0}
-          className="min-w-32 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-lg px-4 py-2 cursor-pointer disabled:cursor-not-allowed transition-colors"
-          onClick={() => downloadPhotosAsZip(selectedPhotos)}>Download Selected Photos</button>
-          <div className="flex gap-4">
-            <button disabled={selectedPhotos.length === galleryImages.length}
-            className="min-w-32 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-lg px-4 py-2 cursor-pointer disabled:cursor-not-allowed transition-colors"
-            onClick={() => {setSelectMode(true); setSelectedPhotos([...galleryImages])}}>Select All</button>
-            <button
-            className="min-w-32 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-lg px-4 py-2 cursor-pointer disabled:cursor-not-allowed transition-colors"
-            onClick={() => {setSelectMode(!selectMode); setSelectedPhotos([])}}>{selectMode? ("Cancel") : ("Select Mode")}</button>
+      
+      
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 mt-12 mb-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-2 border-b border-slate-200 pb-6">
+
+          <button
+            disabled={!selectMode || selectedPhotos.length === 0}
+            onClick={() => downloadPhotosAsZip(selectedPhotos)}
+            className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-medium transition-all duration-200 w-full sm:w-auto ${
+              selectMode && selectedPhotos.length > 0
+                ? "bg-slate-900 text-white shadow-md hover:bg-slate-800 hover:shadow-lg active:scale-95"
+                : "bg-slate-200 text-slate-400 cursor-not-allowed"
+            }`}
+          >
+            <Download size={18} />
+            {selectedPhotos.length > 0 ? `Download (${selectedPhotos.length})` : "Download Photos"}
+          </button>
+
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+            {selectMode ? (
+              <>
+                <button
+                  onClick={handleSelectAll}
+                  className="text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 px-4 py-2.5 rounded-xl transition-colors"
+                >
+                  {selectedPhotos.length === galleryImages.length ? "Deselect All" : "Select All"}
+                </button>
+                <button
+                  onClick={() => {
+                    setSelectMode(false);
+                    setSelectedPhotos([]); // Clear selections when turning off mode
+                  }}
+                  className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-xl font-medium shadow-sm transition-all active:scale-95"
+                >
+                  <X size={18} />
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setSelectMode(true)}
+                className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-xl font-medium shadow-sm transition-all active:scale-95"
+              >
+                <CheckSquare size={18} />
+                Select Photos
+              </button>
+            )}
           </div>
-        </div>
-        <div className="mt-8">
-          <Gallery photos={galleryImages} selectMode={selectMode} selectedPhotos={selectedPhotos} setSelectedPhotos={setSelectedPhotos} />
+          
         </div>
       </div>
+
+      {/* The Gallery Container */}
+      <div className="flex-grow">
+        <Gallery 
+          photos={galleryImages} 
+          selectMode={selectMode} 
+          selectedPhotos={selectedPhotos} 
+          setSelectedPhotos={setSelectedPhotos} 
+        />
+      </div>
+
       <div className="w-full flex justify-center mt-16 -mb-45 relative z-10" >
         <img 
           src="/images/fig-annie-chan.png" 
@@ -85,6 +134,7 @@ export default function TemplatePage({title, date, teacher, venue, galleryImages
           className="h-45 w-auto object-contain opacity-90 hover:scale-105 transition-transform block translate-y-[1px]"
         />
       </div>
+
       <Footer/>
     </div>
   )
