@@ -7,7 +7,7 @@ import JSZip from 'jszip';
 import { saveAs } from "file-saver";
 import type { Photo } from './types/Photo';
 import { useState } from 'react';
-import { Download, CheckSquare, X } from 'lucide-react'; // Our new professional icons!
+import { Download, CheckSquare, X } from 'lucide-react'; // download icon
 
 type TemplatePageProps = {
   title: string, 
