@@ -24,11 +24,11 @@ function getDownloadFileName(fileName: string): string {
     : `${fileName}.jpg`;
 }
 
-async function downloadPhoto(photo: Photo) {
+/*async function downloadPhoto(photo: Photo) {
   const response = await fetch(photo.src);
   const blob = await response.blob();
   saveAs(blob, getDownloadFileName(photo.fileName))
-}
+}*/
 
 async function downloadPhotosAsZip(photos: Photo[]) {
   const zip = new JSZip();

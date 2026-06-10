@@ -1,4 +1,3 @@
-import React from 'react';
 
 // We define exactly what data this component needs to render
 export interface EventHeaderProps {

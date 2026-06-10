@@ -2,7 +2,7 @@ import { useState } from "react";
 import { MasonryPhotoAlbum } from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
 import Download from "yet-another-react-lightbox/plugins/download";
-import { Expand, Check } from "lucide-react";
+import { Check } from "lucide-react";
 
 import "react-photo-album/masonry.css";
 import "yet-another-react-lightbox/styles.css";
@@ -42,7 +42,7 @@ export default function Gallery({ photos, selectMode, selectedPhotos, setSelecte
         }}
         spacing={16}
         render={{
-          photo: (props, { photo, index, width, height }) => {
+          photo: (_props, { photo, index, width, height }) => {
             const isSelected = selectedPhotos.some(
               (p) => p.id === photo.id
             );
