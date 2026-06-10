@@ -10,18 +10,21 @@ function App() {
   const carouselImages: Photo[] = [
     {
       id: crypto.randomUUID(),
+      fileName: "venue-dyplus-1.jpg",
       src: "/images/venue-dyplus-1.jpg",
       width: 1200,
       height: 800
     },
     {
       id: crypto.randomUUID(),
+      fileName: "venue-dyplus-2.jpg",
       src: "/images/venue-dyplus-2.jpg",
       width: 1200,
       height: 800
     },
     {
       id: crypto.randomUUID(),
+      fileName: "venue-shiba-villa-1.jpg",
       src: "/images/venue-shiba-villa-1.jpg",
       width: 1200,
       height: 800
@@ -30,72 +33,84 @@ function App() {
   const galleryImages: Photo[] = [
     {
       id: crypto.randomUUID(),
+      fileName: "venue-dyplus-1.jpg",
       src: "/images/venue-dyplus-1.jpg",
       width: 1200,
       height: 800
     },
     {
       id: crypto.randomUUID(),
+      fileName: "venue-dyplus-2.jpg",
       src: "/images/venue-dyplus-2.jpg",
       width: 1200,
       height: 800
     },
     {
       id: crypto.randomUUID(),
+      fileName: "venue-shiba-villa-1.jpg",
       src: "/images/venue-shiba-villa-1.jpg",
       width: 1200,
       height: 800
     },
     {
       id: crypto.randomUUID(),
+      fileName: "venue-shiba-villa-1.jpg",
       src: "/images/venue-shiba-villa-1.jpg",
       width: 1200,
       height: 800
     },
     {
       id: crypto.randomUUID(),
+      fileName: "venue-shiba-villa-1.jpg",
       src: "/images/venue-shiba-villa-1.jpg",
       width: 1200,
       height: 800
     },
     {
       id: crypto.randomUUID(),
+      fileName: "venue-shiba-villa-1.jpg",
       src: "/images/venue-shiba-villa-1.jpg",
       width: 1200,
       height: 800
     },
     {
       id: crypto.randomUUID(),
+      fileName: "venue-shiba-villa-1.jpg",
       src: "/images/venue-shiba-villa-1.jpg",
       width: 1200,
       height: 800
     },
     {
       id: crypto.randomUUID(),
+      fileName: "venue-shiba-villa-1.jpg",
       src: "/images/venue-shiba-villa-1.jpg",
       width: 1200,
       height: 800
     },
     {
       id: crypto.randomUUID(),
+      fileName: "venue-shiba-villa-1.jpg",
       src: "/images/venue-shiba-villa-1.jpg",
       width: 1200,
       height: 800
     },
     {
       id: crypto.randomUUID(),
-      src: "/images/venue-shiba-villa-1.jpg",
-      width: 1200,
-      height: 800
-    },
-    {
-        id: crypto.randomUUID(),
+      fileName: "venue-shiba-villa-1.jpg",
       src: "/images/venue-shiba-villa-1.jpg",
       width: 1200,
       height: 800
     },
     {
       id: crypto.randomUUID(),
+      fileName: "venue-shiba-villa-1.jpg",
+      src: "/images/venue-shiba-villa-1.jpg",
+      width: 1200,
+      height: 800
+    },
+    {
+      id: crypto.randomUUID(),
+      fileName: "venue-dyplus-1.jpg",
       src: "/images/venue-dyplus-1.jpg",
       width: 1200,
       height: 800
