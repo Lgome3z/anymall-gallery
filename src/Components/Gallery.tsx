@@ -10,11 +10,12 @@ import type { Photo } from "../types/Photo";
 
 type GalleryProps = {
   photos: Photo[];
+  selectMode: boolean;
   selectedPhotos: Photo[];
   setSelectedPhotos: React.Dispatch<React.SetStateAction<Photo[]>>;
 };
 
-export default function Gallery({ photos, selectedPhotos, setSelectedPhotos }: GalleryProps) {
+export default function Gallery({ photos, selectMode, selectedPhotos, setSelectedPhotos }: GalleryProps) {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
 
   const togglePhoto = (photo: Photo) => {
@@ -53,7 +54,14 @@ export default function Gallery({ photos, selectedPhotos, setSelectedPhotos }: G
                     ? "ring-2 ring-blue-500 shadow-lg"
                     : "hover:ring-2 hover:ring-gray-400 hover:shadow-lg"
                 }`}
-                onClick={() => togglePhoto(photo)}
+                onClick={(e) => {
+                  if (selectMode) {
+                    togglePhoto(photo)
+                  } else {
+                    e.stopPropagation();
+                    setLightboxIndex(index);
+                  }
+                }}
               >
                 <img
                   src={photo.src}
@@ -68,17 +76,6 @@ export default function Gallery({ photos, selectedPhotos, setSelectedPhotos }: G
                     <Check size={16} />
                   </div>
                 )}
-
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLightboxIndex(index);
-                  }}
-                  className="absolute bottom-2 right-2 z-10 rounded-full bg-black/60 p-2 text-white opacity-0 transition-opacity duration-200 hover:bg-black/80 group-hover:opacity-100"
-                >
-                  <Expand size={18} />
-                </button>
               </div>
             );
           },

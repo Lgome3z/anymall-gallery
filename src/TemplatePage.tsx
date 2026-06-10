@@ -17,7 +17,7 @@ type TemplatePageProps = {
   carouselImages: Photo[]
 }
 
- async function downloadPhotosAsZip(photos: Photo[]) {
+async function downloadPhotosAsZip(photos: Photo[]) {
   const zip = new JSZip();
 
   for (const photo of photos) {
@@ -34,6 +34,10 @@ type TemplatePageProps = {
 
 export default function TemplatePage({title, date, teacher, venue, galleryImages, carouselImages}: TemplatePageProps) {
   const [selectedPhotos, setSelectedPhotos] = useState<Photo[]>([]);
+  const [selectMode, setSelectMode] = useState<boolean>(false);
+
+
+
   return (
     <div className="min-h-screen bg-slate-50">
       <TopBar/>
@@ -47,8 +51,11 @@ export default function TemplatePage({title, date, teacher, venue, galleryImages
       <button disabled={selectedPhotos.length === 0}
       className="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-lg px-4 py-2 cursor-pointer disabled:cursor-not-allowed transition-colors"
       onClick={() => downloadPhotosAsZip(selectedPhotos)}>Download Selected Photos</button>
+      <button
+      className="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-lg px-4 py-2 cursor-pointer disabled:cursor-not-allowed transition-colors"
+      onClick={() => {setSelectMode(!selectMode); setSelectedPhotos([])}}>Select Photos</button>
       <div className="mt-12">
-        <Gallery photos={galleryImages} selectedPhotos={selectedPhotos} setSelectedPhotos={setSelectedPhotos} />
+        <Gallery photos={galleryImages} selectMode={selectMode} selectedPhotos={selectedPhotos} setSelectedPhotos={setSelectedPhotos} />
       </div>
       <Footer/>
     </div>
