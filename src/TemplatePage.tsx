@@ -17,6 +17,19 @@ type TemplatePageProps = {
   carouselImages: Photo[]
 }
 
+function getDownloadFileName(fileName: string): string {
+  return /\.(jpg|jpeg|png|webp|gif|bmp|heic|heif)$/.test(fileName)
+    ? fileName
+    : `${fileName}.jpg`;
+}
+
+async function downloadPhoto(photo: Photo) {
+  const response = await fetch(photo.src);
+  const blob = await response.blob();
+
+  saveAs(blob, getDownloadFileName(photo.fileName))
+}
+
 async function downloadPhotosAsZip(photos: Photo[]) {
   const zip = new JSZip();
 
@@ -24,7 +37,7 @@ async function downloadPhotosAsZip(photos: Photo[]) {
     const response = await fetch(photo.src);
     const blob = await response.blob();
 
-    zip.file(`${photo.fileName}.jpg`, blob);
+    zip.file(getDownloadFileName(photo.fileName), blob);
   }
 
   const zipBlob = await zip.generateAsync({ type:"blob" });

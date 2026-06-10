@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MasonryPhotoAlbum } from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
+import  Download  from "yet-another-react-lightbox/plugins/download";
 import { Expand, Check } from "lucide-react";
 
 import "react-photo-album/masonry.css";
@@ -88,6 +89,7 @@ export default function Gallery({ photos, selectMode, selectedPhotos, setSelecte
         close={() => setLightboxIndex(-1)}
         slides={photos}
         index={lightboxIndex}
+        plugins={[Download]}
       />
     </div>
   );
