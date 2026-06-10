@@ -17,7 +17,7 @@ type TemplatePageProps = {
   carouselImages: Photo[]
 }
 
-export async function downloadPhotosAsZip(photos: Photo[]) {
+ async function downloadPhotosAsZip(photos: Photo[]) {
   const zip = new JSZip();
 
   for (const photo of photos) {
