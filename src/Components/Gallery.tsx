@@ -30,7 +30,8 @@ export default function Gallery({ photos, selectedPhotos, setSelectedPhotos }: G
   };
 
   return (
-    <>
+
+<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
       <MasonryPhotoAlbum
         photos={photos}
         columns={(containerWidth) => {
@@ -64,7 +65,7 @@ export default function Gallery({ photos, selectedPhotos, setSelectedPhotos }: G
                 />
 
                 {isSelected && (
-                  <div className="absolute top-2 right-2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 text-white">
+                  <div className="absolute top-2 right-2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 text-white shadow-sm">
                     <Check size={16} />
                   </div>
                 )}
@@ -91,6 +92,6 @@ export default function Gallery({ photos, selectedPhotos, setSelectedPhotos }: G
         slides={photos}
         index={lightboxIndex}
       />
-    </>
+    </div>
   );
 }

@@ -50,6 +50,13 @@ export default function TemplatePage({title, date, teacher, venue, galleryImages
       <div className="mt-12">
         <Gallery photos={galleryImages} selectedPhotos={selectedPhotos} setSelectedPhotos={setSelectedPhotos} />
       </div>
+      <div className="w-full flex justify-center mt-16 -mb-45 relative z-10" >
+        <img 
+          src="/images/fig-annie-chan.png" 
+          alt="Event Mascot" 
+          className="h-45 w-auto object-contain opacity-90 hover:scale-105 transition-transform block translate-y-[1px]"
+        />
+      </div>
       <Footer/>
     </div>
   )
