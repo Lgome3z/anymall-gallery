@@ -37,7 +37,6 @@ export default function TemplatePage({title, date, teacher, venue, galleryImages
   const [selectMode, setSelectMode] = useState<boolean>(false);
 
 
-
   return (
     <div className="min-h-screen bg-slate-50">
       <TopBar/>
@@ -48,14 +47,23 @@ export default function TemplatePage({title, date, teacher, venue, galleryImages
         venue={venue}
       />
       <ImageCarousel images={carouselImages} />
-      <button disabled={selectedPhotos.length === 0}
-      className="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-lg px-4 py-2 cursor-pointer disabled:cursor-not-allowed transition-colors"
-      onClick={() => downloadPhotosAsZip(selectedPhotos)}>Download Selected Photos</button>
-      <button
-      className="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-lg px-4 py-2 cursor-pointer disabled:cursor-not-allowed transition-colors"
-      onClick={() => {setSelectMode(!selectMode); setSelectedPhotos([])}}>Select Photos</button>
-      <div className="mt-12">
-        <Gallery photos={galleryImages} selectMode={selectMode} selectedPhotos={selectedPhotos} setSelectedPhotos={setSelectedPhotos} />
+      <div className="mt-12 p-20 gap-4">
+        <div className="flex justify-between items-center">
+          <button disabled={selectedPhotos.length === 0}
+          className="min-w-32 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-lg px-4 py-2 cursor-pointer disabled:cursor-not-allowed transition-colors"
+          onClick={() => downloadPhotosAsZip(selectedPhotos)}>Download Selected Photos</button>
+          <div className="flex gap-4">
+            <button disabled={selectedPhotos.length === galleryImages.length}
+            className="min-w-32 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-lg px-4 py-2 cursor-pointer disabled:cursor-not-allowed transition-colors"
+            onClick={() => {setSelectMode(true); setSelectedPhotos([...galleryImages])}}>Select All</button>
+            <button
+            className="min-w-32 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-lg px-4 py-2 cursor-pointer disabled:cursor-not-allowed transition-colors"
+            onClick={() => {setSelectMode(!selectMode); setSelectedPhotos([])}}>{selectMode? ("Cancel") : ("Select Mode")}</button>
+          </div>
+        </div>
+        <div className="mt-8">
+          <Gallery photos={galleryImages} selectMode={selectMode} selectedPhotos={selectedPhotos} setSelectedPhotos={setSelectedPhotos} />
+        </div>
       </div>
       <Footer/>
     </div>
