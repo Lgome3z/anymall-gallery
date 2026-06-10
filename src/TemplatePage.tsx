@@ -4,6 +4,7 @@ import Gallery from './Components/Gallery';
 import TopBar from './Components/TopBar';
 import Footer from './Components/Footer';
 import type { Photo } from './types/Photo'
+import { useState } from 'react'
 
 type TemplatePageProps = {
   title: string, 
@@ -15,6 +16,7 @@ type TemplatePageProps = {
 }
 
 export default function TemplatePage({title, date, teacher, venue, galleryImages, carouselImages}: TemplatePageProps) {
+  const [selectedPhotos, setSelectedPhotos] = useState<Photo[]>([]);
   return (
     <div className="min-h-screen bg-slate-50">
       <TopBar/>
@@ -27,7 +29,7 @@ export default function TemplatePage({title, date, teacher, venue, galleryImages
       <ImageCarousel images={carouselImages} />
 
       <div className="mt-12">
-        <Gallery photos={galleryImages} />
+        <Gallery photos={galleryImages} selectedPhotos={selectedPhotos} setSelectedPhotos={setSelectedPhotos} />
       </div>
       <Footer/>
     </div>
