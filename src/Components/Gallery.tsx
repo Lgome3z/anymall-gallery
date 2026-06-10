@@ -3,6 +3,7 @@ import { MasonryPhotoAlbum } from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
 import Download from "yet-another-react-lightbox/plugins/download";
 import { Check } from "lucide-react";
+import { getDownloadFileName } from "../TemplatePage";
 
 import "react-photo-album/masonry.css";
 import "yet-another-react-lightbox/styles.css";
@@ -96,6 +97,45 @@ export default function Gallery({ photos, selectMode, selectedPhotos, setSelecte
         slides={photos}
         index={lightboxIndex}
         plugins={[Download]}
+        download={{
+          download: async ({ slide, saveAs }) => {
+            const photo = photos.find((p) => p.src === slide.src);
+
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            const fileName = /\.(jpg|jpeg|png|webp|gif|bmp|heic|heif)$/i.test(photo?.fileName ?? "")
+              ? photo!.fileName
+              : `${photo?.fileName ?? "image"}.jpg`;
+
+            const response = await fetch(slide.src);
+
+            if (!response.ok) {
+              throw new Error(`Failed to fetch image: ${response.status}`);
+            }
+
+            const blob = await response.blob();
+
+            const file = new File(
+              [blob],
+              fileName,
+              { type: blob.type }
+            );
+
+            if (
+              isMobile &&
+              navigator.canShare({ files: [file] })
+            ) {
+              await navigator.share({
+                files: [file],
+                title: fileName,
+              });
+
+              return;
+            }
+
+            saveAs(blob, fileName);
+          },
+        }}
       />
     </div>
   );

@@ -18,7 +18,7 @@ type TemplatePageProps = {
   carouselImages: Photo[]
 }
 
-function getDownloadFileName(fileName: string): string {
+export function getDownloadFileName(fileName: string): string {
   return /\.(jpg|jpeg|png|webp|gif|bmp|heic|heif)$/.test(fileName)
     ? fileName
     : `${fileName}.jpg`;
@@ -30,7 +30,52 @@ function getDownloadFileName(fileName: string): string {
   saveAs(blob, getDownloadFileName(photo.fileName))
 }*/
 
+async function sharePhotos(photos: Photo[]) {
+  const files: File[] = [];
+
+  for (const photo of photos) {
+    const response = await fetch(photo.src);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${photo.fileName}`);
+    }
+
+    const blob = await response.blob();
+
+    files.push(
+      new File(
+        [blob],
+        getDownloadFileName(photo.fileName),
+        { type: blob.type }
+      )
+    );
+  }
+
+  if (
+    navigator.canShare &&
+    navigator.canShare({ files })
+  ) {
+    await navigator.share({
+      files,
+      title: "Selected Photos",
+    });
+
+    return true;
+  }
+
+  return false;
+}
+
 async function downloadPhotosAsZip(photos: Photo[]) {
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    const shared = await sharePhotos(photos);
+    if (shared) {
+      return;
+    }
+  }
+
   const zip = new JSZip();
 
   for (const photo of photos) {
@@ -131,7 +176,7 @@ export default function TemplatePage({title, date, teacher, venue, galleryImages
         <img 
           src="/images/fig-annie-chan.png" 
           alt="Event Mascot" 
-          className="h-45 w-auto object-contain opacity-90 hover:scale-105 transition-transform block translate-y-[1px]"
+          className="h-45 w-auto object-contain opacity-90 block translate-y-[1px]"
         />
       </div>
 
