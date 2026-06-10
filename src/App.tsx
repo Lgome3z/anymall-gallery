@@ -14,7 +14,7 @@ function App() {
   const handleUnlock = (enteredPin: string) => {
     if (enteredPin === CORRECT_PIN) {
       setIsUnlocked(true);
-      setPinError(""); 
+      setPinError("");
     } else {
       setPinError("Incorrect PIN. Please try again.");
     }
@@ -135,7 +135,7 @@ function App() {
   ];
 
   // --- CONDITIONAL RENDERING ---
-  
+
   // If they haven't put in the right PIN yet, ONLY show the PinScreen
   if (!isUnlocked) {
     return <PinScreen onUnlock={handleUnlock} errorMessage={pinError} />;
@@ -143,7 +143,7 @@ function App() {
 
   // If they got past the gate, render.
   return (
-    <TemplatePage 
+    <TemplatePage
       title={title}
       date={date}
       teacher={teacher}
